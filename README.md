@@ -4,7 +4,7 @@ This is a Vagrant plugin that adds a Cisco CloudCenter provider to Vagrant. It a
 
 This plugin is currently a Proof of Concept and has been developed and tested against Cisco CloudCenter 4.6.0 and Vagrant 1.2+
 
-![alt tag]()
+![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/overview.png)
 
 Table of Contents
 =================
