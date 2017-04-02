@@ -73,6 +73,8 @@ end
 
 ## Box Format
 
+See the https://www.vagrantup.com/docs/boxes/base.html for the format of the box including the SSH access.
+
 ## Configuration
 
 This provider exposes quite a few provider-specific configuration options:
