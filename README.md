@@ -73,7 +73,8 @@ end
 
 ## Box Format
 
-See the https://www.vagrantup.com/docs/boxes/base.html for the format of the box including the SSH access.
+See the [Vagrant Box Format]( https://www.vagrantup.com/docs/boxes/base.html ) for further details on the box requirements. SSH access will need to be configured as per the guide.
+
 
 ## Configuration
 
