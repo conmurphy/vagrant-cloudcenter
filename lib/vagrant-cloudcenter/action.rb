@@ -140,14 +140,13 @@ module VagrantPlugins
           b.use ReadState
           b.use Call, IsCreated do |env1, b1|   
             if env1[:result] == :created
-              env1[:ui].info(I18n.t("cloudcenter.already_created"))
               b1.use Call, IsStopped do |env2, b2|
                 if env2[:result] == :stopped
                   env2[:ui].info(I18n.t("cloudcenter.starting"))
                   b2.use action_prepare_boot
                   b2.use StartInstance 
                 else
-                    env2[:ui].info(I18n.t("cloudcenter.already_running"))
+                  env2[:ui].info(I18n.t("cloudcenter.already_running"))
                 end
               end
             else
@@ -160,6 +159,21 @@ module VagrantPlugins
         end
       end
       
+      def self.action_sync
+        Vagrant::Action::Builder.new.tap do |b|
+          b.use ConfigValidate
+          b.use Call, IsCreated do |env, b1|
+            if env[:result] != :created
+              env[:ui].info(I18n.t("cloudcenter.not_created"))
+            else
+              b1.use ReadSSHInfo
+              b1.use SyncedFolders
+            end
+            
+          end
+        end
+      end
+
     end
   end
 end

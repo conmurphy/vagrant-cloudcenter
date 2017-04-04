@@ -40,8 +40,19 @@ module VagrantPlugins
                 end
                 
               rescue => e
-                puts "Error \n"
-                puts e
+                error = JSON.parse(e.response) 
+                code = error["errors"][0]["code"] 
+
+                if code ==  "DEPLOYMENT_STATUS_NOT_VALID_FOR_OPERATION"
+                  puts "\n Error code: #{error['errors'][0]['code']}\n"
+                  puts "\n #{error['errors'][0]['message']}\n\n"
+                  exit
+                else
+                  puts "\n Error code: #{error['errors'][0]['code']}\n"
+                  puts "\n #{error['errors'][0]['message']}\n\n"
+                end
+
+                exit
               end 
 
               if !jobID.nil?
@@ -58,8 +69,19 @@ module VagrantPlugins
                   ));
 
                 rescue => e
-                  puts "Error \n"
-                  puts e
+                  error = JSON.parse(e.response) 
+                  code = error["errors"][0]["code"] 
+
+                  if code ==  "DEPLOYMENT_STATUS_NOT_VALID_FOR_OPERATION"
+                    puts "\n Error code: #{error['errors'][0]['code']}\n"
+                    puts "\n #{error['errors'][0]['message']}\n\n"
+                    exit
+                  else
+                    puts "\n Error code: #{error['errors'][0]['code']}\n"
+                    puts "\n #{error['errors'][0]['message']}\n\n"
+                  end
+
+                  exit
                 end 
 
                 if response["deploymentEntity"]["attributes"]["health"] == "Healthy"

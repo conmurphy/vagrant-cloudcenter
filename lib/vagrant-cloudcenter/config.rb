@@ -24,7 +24,7 @@ module VagrantPlugins
       attr_accessor :deployment_config
 
      
-      def initialize(region_specific=false)
+      def initialize()
         @access_key              = UNSET_VALUE
         @host_ip              = UNSET_VALUE
         @host_port		           = UNSET_VALUE

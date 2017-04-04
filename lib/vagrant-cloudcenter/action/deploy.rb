@@ -8,7 +8,6 @@ require 'vagrant/util/retryable'
 
 require 'vagrant-cloudcenter/util/timer'
 
-
 module VagrantPlugins
   module Cloudcenter
     module Action
@@ -33,7 +32,7 @@ module VagrantPlugins
           begin
 
             if !File.exists?(env[:machine].provider_config.deployment_config)
-              puts "Missing deployment_config file"
+              puts "\nMissing deployment_config file\n\n"
               exit
             end
 
@@ -69,15 +68,19 @@ module VagrantPlugins
 
           rescue => e
 
-              puts "Error\n\n"
+              error = JSON.parse(e.response) 
+              code = error["errors"][0]["code"] 
 
-              if e.inspect ==  "Timed out connecting to server"
-                puts "\n#ConnectionError - Unable to connnect to CloudCenter Manager \n"
+              if code ==  "DEPLOYMENT_STATUS_NOT_VALID_FOR_OPERATION"
+                puts "\n Error code: #{error['errors'][0]['code']}\n"
+                puts "\n #{error['errors'][0]['message']}\n\n"
                 exit
               else
-                puts e.inspect
-                exit
+                puts "\n Error code: #{error['errors'][0]['code']}\n"
+                puts "\n #{error['errors'][0]['message']}\n\n"
               end
+
+              exit
       
           end
 
@@ -109,16 +112,32 @@ module VagrantPlugins
 
                       status = response["status"]
                       
+                      
                       if status == "JobRunning" then 
                         env[:machine_state_id]= :created
                         break
                       elsif status == "JobStarting" || status == "JobSubmitted" || status == "JobInProgress" || status == "JobResuming"
                         env[:ui].info(I18n.t("cloudcenter.waiting_for_ssh"))
+                      elsif status == "JobError" 
+                        puts "\nError deploying VM...\n"
+                        puts "\n#{response['jobStatusMessage']}\n\n"
+                        exit
                       end
                   
                   rescue => e
-                    puts "Error\n\n"
-                    puts e
+                    error = JSON.parse(e.response) 
+                    code = error["errors"][0]["code"] 
+
+                    if code ==  "DEPLOYMENT_STATUS_NOT_VALID_FOR_OPERATION"
+                      puts "\n Error code: #{error['errors'][0]['code']}\n"
+                      puts "\n #{error['errors'][0]['message']}\n\n"
+                      exit
+                    else
+                      puts "\n Error code: #{error['errors'][0]['code']}\n"
+                      puts "\n #{error['errors'][0]['message']}\n\n"
+                    end
+
+                    exit
                   end
 
                   sleep 20

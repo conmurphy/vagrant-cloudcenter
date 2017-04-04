@@ -33,6 +33,10 @@ module VagrantPlugins
             require File.expand_path("../init", __FILE__)
             Init
           end
+          @subcommands.register(:sync) do
+            require File.expand_path("../sync", __FILE__)
+            Sync
+          end
 
           super(argv, env)
         end

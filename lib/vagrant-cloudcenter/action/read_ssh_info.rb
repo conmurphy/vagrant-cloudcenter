@@ -8,7 +8,7 @@ module VagrantPlugins
       # `:machine_ssh_info` key in the environment.
       class ReadSSHInfo
         def initialize(app, env)
-          @app    = app
+          @app = app
         end
 
         def call(env)
@@ -45,8 +45,19 @@ module VagrantPlugins
               jobID = response["jobs"][0]["id"]
 
               rescue => e
-                puts "Error \n"
-                puts e
+                error = JSON.parse(e.response) 
+                code = error["errors"][0]["code"] 
+
+                if code ==  "DEPLOYMENT_STATUS_NOT_VALID_FOR_OPERATION"
+                  puts "\n Error code: #{error['errors'][0]['code']}\n"
+                  puts "\n #{error['errors'][0]['message']}\n\n"
+                  exit
+                else
+                  puts "\n Error code: #{error['errors'][0]['code']}\n"
+                  puts "\n #{error['errors'][0]['message']}\n\n"
+                end
+
+                exit
               end 
 
               begin
@@ -61,8 +72,19 @@ module VagrantPlugins
                   :payload => deployment_config
                 ));
               rescue => e
-                puts "Error \n"
-                puts e
+                error = JSON.parse(e.response) 
+                code = error["errors"][0]["code"] 
+
+                if code ==  "DEPLOYMENT_STATUS_NOT_VALID_FOR_OPERATION"
+                  puts "\n Error code: #{error['errors'][0]['code']}\n"
+                  puts "\n #{error['errors'][0]['message']}\n\n"
+                  exit
+                else
+                  puts "\n Error code: #{error['errors'][0]['code']}\n"
+                  puts "\n #{error['errors'][0]['message']}\n\n"
+                end
+
+                exit
               end 
 
               env[:machine_public_ip] = response["accessLink"][7,response.length]
