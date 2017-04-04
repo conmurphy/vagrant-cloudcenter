@@ -174,6 +174,50 @@ module VagrantPlugins
         end
       end
 
+
+      # This action is called when `vagrant provision` is called.
+      def self.action_provision
+        Vagrant::Action::Builder.new.tap do |b|
+          b.use ConfigValidate
+          b.use Call, IsCreated do |env, b2|
+            if env[:result] != :created
+              env[:ui].info(I18n.t("cloudcenter.not_created"))
+            else
+              b2.use Provision
+            end
+
+           
+          end
+        end
+      end
+
+      # The current implementation uses the CloudCenter Jobs API which starts/stops the entire job instead of an individual VM which requires
+      # knowledge of the VM ID. There is no reboot/reload option for the jobs API so instead we will stop the job and then start the job 
+      def self.action_reload
+        Vagrant::Action::Builder.new.tap do |b|
+          b.use ConfigValidate
+          b.use Call, IsCreated do |env1, b1|   
+            if env1[:result] == :created
+              b1.use Call, IsStopped do |env2, b2|
+                if env2[:result] == :stopped
+                  env2[:ui].info(I18n.t("cloudcenter.already_stopped"))
+                  env2[:ui].info(I18n.t("cloudcenter.starting"))
+                  b2.use action_prepare_boot
+                  b2.use StartInstance 
+                else
+                  b2.use StopInstance
+                  b2.use action_prepare_boot
+                  b2.use StartInstance 
+                end
+              end
+            else
+              env[:ui].info(I18n.t("cloudcenter.not_created"))
+            end
+          end
+
+        end
+      end
+
     end
   end
 end

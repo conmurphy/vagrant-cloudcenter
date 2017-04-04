@@ -3,7 +3,7 @@ module VagrantPlugins
     module Command
       class App < Vagrant.plugin("2", :command)
        def self.synopsis
-          "Retrieve available catalog items"
+          "Retrieve application details"
         end
         
         def execute

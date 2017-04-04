@@ -8,7 +8,6 @@ module VagrantPlugins
 
       include Vagrant::Action::Builtin
       
-
       class Sync < Vagrant.plugin("2", :command)
      
         def self.synopsis

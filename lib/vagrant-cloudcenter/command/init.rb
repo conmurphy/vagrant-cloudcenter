@@ -3,7 +3,7 @@ module VagrantPlugins
     module Command
       class Init < Vagrant.plugin("2", :command)
        def self.synopsis
-          "Retrieve available catalog items"
+          "Create inital Vagrant file"
         end
         
        # This will build the Vagrantfile and insert the attributes required

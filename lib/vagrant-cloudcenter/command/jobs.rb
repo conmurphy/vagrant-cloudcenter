@@ -3,7 +3,7 @@ module VagrantPlugins
     module Command
       class Jobs < Vagrant.plugin("2", :command)
        def self.synopsis
-          "Retrieve available catalog items"
+          "Retrieve available jobs"
         end
         
         def execute

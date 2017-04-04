@@ -10,7 +10,7 @@ module VagrantPlugins
     module Command
       class Root < Vagrant.plugin("2", :command)
         def self.synopsis
-          "Deploy a new environment using Cisco CloudCenter"
+          "deploy a new environment using Cisco CloudCenter"
         end
 
         def initialize(argv, env)
@@ -64,10 +64,23 @@ module VagrantPlugins
             # Add the available subcommands as separators in order to print them
             # out as well.
             keys = []
-            @subcommands.each { |key, value| keys << key.to_s }
+            commands = {}
+            longest = 0
 
+            @subcommands.each do |key, data| 
+
+              keys << key
+              commands[key] = data.synopsis
+              longest       = key.length if key.length > longest
+
+            end
+
+            puts "#{commands}"
             keys.sort.each do |key|
-              opts.separator "     #{key}"
+              key.to_sym
+              synopsis = commands[key].to_str
+              command = key.to_s
+              opts.separator "     #{command.ljust(longest+2)} #{synopsis}"
             end
 
             opts.separator ""

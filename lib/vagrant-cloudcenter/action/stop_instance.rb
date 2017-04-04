@@ -5,6 +5,7 @@ module VagrantPlugins
     module Action
       # This stops the running instance.
       class StopInstance
+
         def initialize(app, env)
           @app    = app
           @logger = Log4r::Logger.new("cloudcenter::action::stop_instance")
