@@ -4,7 +4,7 @@ This is a Vagrant plugin that adds a Cisco CloudCenter provider to Vagrant. It a
 
 This plugin is currently a Proof of Concept and has been developed and tested against Cisco CloudCenter 4.6.0 and Vagrant 1.2+
 
-![alt tag]()
+![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/overview.png)
 
 Table of Contents
 =================
@@ -73,6 +73,9 @@ end
 
 ## Box Format
 
+See the [Vagrant Box Format]( https://www.vagrantup.com/docs/boxes/base.html ) for further details on the box requirements. SSH access will need to be configured as per the guide.
+
+
 ## Configuration
 
 This provider exposes quite a few provider-specific configuration options:
@@ -102,4 +105,6 @@ $ vagrant plugin install ./vagrant-cloudcenter-0.1.0.gem
 
 To uninstall the plugin run `vagrant plugin uninstall vagrant-cloudcenter`
 
+WARNING:
 
+These scripts are meant for educational/proof of concept purposes only. Any use of these scripts and tools is at your own risk. There is no guarantee that they have been through thorough testing in a comparable environment and we are not responsible for any damage or data loss incurred with their use.
