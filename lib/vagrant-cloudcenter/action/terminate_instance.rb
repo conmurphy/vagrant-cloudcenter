@@ -53,14 +53,8 @@ module VagrantPlugins
                 error = JSON.parse(e.response) 
                 code = error["errors"][0]["code"] 
 
-                if code ==  "DEPLOYMENT_STATUS_NOT_VALID_FOR_OPERATION"
-                  puts "\n Error code: #{error['errors'][0]['code']}\n"
-                  puts "\n #{error['errors'][0]['message']}\n\n"
-                  exit
-                else
-                  puts "\n Error code: #{error['errors'][0]['code']}\n"
-                  puts "\n #{error['errors'][0]['message']}\n\n"
-                end
+                puts "\n Error code: #{error['errors'][0]['code']}\n"
+                puts "\n #{error['errors'][0]['message']}\n\n"
 
                 exit
               end 
@@ -81,14 +75,8 @@ module VagrantPlugins
                   error = JSON.parse(e.response) 
                   code = error["errors"][0]["code"] 
 
-                  if code ==  "DEPLOYMENT_STATUS_NOT_VALID_FOR_OPERATION"
-                    puts "\n Error code: #{error['errors'][0]['code']}\n"
-                    puts "\n #{error['errors'][0]['message']}\n\n"
-                    exit
-                  else
-                    puts "\n Error code: #{error['errors'][0]['code']}\n"
-                    puts "\n #{error['errors'][0]['message']}\n\n"
-                  end
+                  puts "\n Error code: #{error['errors'][0]['code']}\n"
+                  puts "\n #{error['errors'][0]['message']}\n\n"
 
                   exit
                  
@@ -113,14 +101,8 @@ module VagrantPlugins
                           error = JSON.parse(e.response) 
                           code = error["errors"][0]["code"] 
 
-                          if code ==  "DEPLOYMENT_STATUS_NOT_VALID_FOR_OPERATION"
-                            puts "\n Error code: #{error['errors'][0]['code']}\n"
-                            puts "\n #{error['errors'][0]['message']}\n\n"
-                            exit
-                          else
-                            puts "\n Error code: #{error['errors'][0]['code']}\n"
-                            puts "\n #{error['errors'][0]['message']}\n\n"
-                          end
+                          puts "\n Error code: #{error['errors'][0]['code']}\n"
+                          puts "\n #{error['errors'][0]['message']}\n\n"
 
                           exit
                         

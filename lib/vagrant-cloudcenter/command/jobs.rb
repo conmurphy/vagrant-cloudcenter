@@ -99,7 +99,12 @@ module VagrantPlugins
 		              puts "\n#ConnectionError - Unable to connnect to CloudCenter Manager \n"
 		              exit
 		            else
-		              puts e.inspect
+		              error = JSON.parse(e.response) 
+	                  code = error["errors"][0]["code"]
+
+		              puts "\n Error code: #{error['errors'][0]['code']}\n"
+	                  puts "\n #{error['errors'][0]['message']}\n\n"
+
 		              exit
 		            end
 				end	

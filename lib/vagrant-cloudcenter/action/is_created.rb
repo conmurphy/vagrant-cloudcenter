@@ -40,8 +40,13 @@ module VagrantPlugins
                 end
 
               rescue => e
-                puts "Error\n"
-                puts e
+                error = JSON.parse(e.response) 
+                code = error["errors"][0]["code"] 
+
+                puts "\n Error code: #{error['errors'][0]['code']}\n"
+                puts "\n #{error['errors'][0]['message']}\n\n"
+
+                exit
               end 
 
               if !jobID.nil?
@@ -58,8 +63,13 @@ module VagrantPlugins
                   ));
 
                 rescue => e
-                  puts "Error\n"
-                  puts e
+                  error = JSON.parse(e.response) 
+                  code = error["errors"][0]["code"] 
+
+                  puts "\n Error code: #{error['errors'][0]['code']}\n"
+                  puts "\n #{error['errors'][0]['message']}\n\n"
+
+                  exit
                 end 
 
                 env[:machine_public_ip] = response["accessLink"][7,response.length]

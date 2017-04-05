@@ -16,7 +16,6 @@ module VagrantPlugins
       autoload :IsStopped, action_root.join("is_stopped")
       autoload :MessageAlreadyCreated, action_root.join("message_already_created")
       autoload :MessageNotCreated, action_root.join("message_not_created")
-      autoload :MessageWillNotDestroy, action_root.join("message_will_not_destroy")
       autoload :PackageInstance, action_root.join("package_instance")
       autoload :ReadSSHInfo, action_root.join("read_ssh_info")
       autoload :ReadState, action_root.join("read_state")
@@ -38,13 +37,20 @@ module VagrantPlugins
       # This action is called to destroy the remote machine.
       def self.action_destroy
         Vagrant::Action::Builder.new.tap do |b|
-          b.use ConfigValidate
-          b.use Call, IsCreated do |env, b1|
-            if env[:result] != :created
-              env[:ui].info(I18n.t("cloudcenter.not_created"))
+          b.use Call, DestroyConfirm do |env, b1|
+            if env[:result]
+              b1.use ConfigValidate
+              b1.use Call, IsCreated do |env, b2|
+                if env[:result] != :created
+                  env[:ui].info(I18n.t("cloudcenter.not_created"))
+                else
+                  b2.use TerminateInstance
+                end
+              end
             else
-              b1.use TerminateInstance
+              env[:ui].info(I18n.t("cloudcenter.will_not_destroy", name: env[:machine].name))
             end
+
           end
         end
       end

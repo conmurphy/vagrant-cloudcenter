@@ -37,8 +37,8 @@ module VagrantPlugins
 		            encoded = URI.encode("https://#{username}:#{access_key}@#{host_ip}/v1/apps/#{argv[0]}");           
 		            
 		            catalog = JSON.parse(RestClient::Request.execute(
-		   									:method => :get,
-		  									:url => encoded,
+		   					:method => :get,
+		  					:url => encoded,
 		                    :verify_ssl => false,
 		                    :content_type => "json",
 		                    :accept => "json"
@@ -52,7 +52,12 @@ module VagrantPlugins
 	              puts "\n#ConnectionError - Unable to connnect to CloudCenter Manager \n"
 	              exit
 	            else
-	              puts e.inspect
+	              error = JSON.parse(e.response) 
+                  code = error["errors"][0]["code"]
+
+	              puts "\n Error code: #{error['errors'][0]['code']}\n"
+                  puts "\n #{error['errors'][0]['message']}\n\n"
+
 	              exit
 	            end
 			end	
