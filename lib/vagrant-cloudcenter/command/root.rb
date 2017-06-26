@@ -75,7 +75,6 @@ module VagrantPlugins
 
             end
 
-            puts "#{commands}"
             keys.sort.each do |key|
               key.to_sym
               synopsis = commands[key].to_str

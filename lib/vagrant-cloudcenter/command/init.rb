@@ -19,7 +19,10 @@ module VagrantPlugins
 Vagrant.configure(2) do |config|
 
 	config.vm.box = 'cloudcenter'
- 
+ 	
+ 	config.ssh.private_key_path = ['/Users/MYUSERNAME/.ssh/id_rsa','/Users/MYUSERNAME/.vagrant.d/insecure_private_key']
+	config.ssh.insert_key = false
+
 	config.vm.provider :cloudcenter do |cloudcenter|
 		cloudcenter.username = 'my_username'
 		cloudcenter.access_key = 'my_access_key'

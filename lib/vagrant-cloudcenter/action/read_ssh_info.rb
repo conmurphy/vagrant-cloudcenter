@@ -79,8 +79,9 @@ module VagrantPlugins
 
           end 
 
-          env[:machine_ssh_info] = { :host =>  env[:machine_public_ip], :port => 22, :username => "vagrant"}
-          env[:ssh_info]  = { :host =>  env[:machine_public_ip], :port => 22, :username => "vagrant"}
+          #env[:machine_ssh_info] = { :host =>  env[:machine_public_ip], :port => 22, :username => "vagrant",:private_key_path => env[:machine].config.ssh.private_key_path}
+
+          env[:ssh_info]  = { :host =>  env[:machine_public_ip], :port => 22, :username => "vagrant",:private_key_path => env[:machine].config.ssh.private_key_path}
 
 
           @app.call(env)
