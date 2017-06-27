@@ -9,7 +9,7 @@ This plugin is currently a Proof of Concept and has been developed and tested ag
 Table of Contents
 =================
 
-   * [Cisco CloudCenter Vagrant Plugin - Proof of Concept](#cisco-cloudcenter-vagrant-plugin---proof-of-concept)
+* [Cisco CloudCenter Vagrant Plugin - Proof of Concept](#cisco-cloudcenter-vagrant-plugin---proof-of-concept)
    * [Table of Contents](#table-of-contents)
       * [Features](#features)
       * [Usage](#usage)
@@ -17,7 +17,9 @@ Table of Contents
       * [Installation](#installation)
       * [Box Format](#box-format)
       * [Configuration](#configuration)
+      * [Deployment Config](#deployment-config)
       * [Synced Folders](#synced-folders)
+      * [Guidelines and Limitations](#guidelines-and-limitations)
       * [Development](#development)
       
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
