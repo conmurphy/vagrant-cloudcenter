@@ -2,7 +2,7 @@
 
 This is a Vagrant plugin that adds a Cisco CloudCenter provider to Vagrant. It allows Vagrant to communicate with CloudCenter and have it control and provision machines in a number of public and private clouds. 
 
-This plugin is currently a Proof of Concept and has been developed and tested against Cisco CloudCenter 4.6.0 and Vagrant 1.2+
+This plugin is currently a Proof of Concept and has been developed and tested against Cisco CloudCenter 4.8.0 and Vagrant 1.2+
 
 ![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/overview.png)
 
@@ -24,7 +24,7 @@ Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 ## Features
 
-* Boot instances thorugh CloudCenter
+* Boot instances through CloudCenter
 * SSH into the instances
 * Provision the instances with any built-in Vagrant provisioner
 * Minimal synced folder support via `rsync`
@@ -56,7 +56,10 @@ your information where necessary, or run the `vagrant cloudcenter init` command 
 Vagrant.configure(2) do |config|
 
 	config.vm.box = 'cloudcenter'
- 
+	
+ 	config.ssh.private_key_path = ['/Users/MYUSERNAME/.ssh/id_rsa','/Users/MYUSERNAME/.vagrant.d/insecure_private_key']
+	config.ssh.insert_key = false
+	
 	config.vm.provider :cloudcenter do |cloudcenter|
 		cloudcenter.username = 'my_username'
 		cloudcenter.access_key = 'my_access_key'
@@ -73,8 +76,14 @@ end
 
 ## Box Format
 
-See the [Vagrant Box Format]( https://www.vagrantup.com/docs/boxes/base.html ) for further details on the box requirements. SSH access will need to be configured as per the guide.
+The Vagrant CloudCenter plugin requires a box with configuration as outlined in this document.
 
+[Vagrant Box Format]( https://www.vagrantup.com/docs/boxes/base.html ) 
+
+* "vagrant" User
+* Root Password: "vagrant"
+* Password-less Sudo
+* SSH Tweaks
 
 ## Configuration
 
@@ -85,6 +94,18 @@ This provider exposes quite a few provider-specific configuration options:
 * `host_ip` - The host IP address of the CloudCenter Manager
 * `deployment_config` - A JSON file used by CloudCenter to deploy the desired infrastructure
 
+## Deployment Config
+
+This is a JSON file used by Cisco CloudCenter to deploy a new application into the environment of your choosing. It can be created by following these steps:
+
+1. Access the application from the CCM UI and click Applications
+2. Search for the required application in the Applications page
+3. Select `Deploy` 
+4. Complete the required fields
+5. Select `Restful JSON`
+6. Save the JSON output into a new file on your local machine
+7. Use this file in the `cloudcenter.deployment_config` setting
+
 ## Synced Folders
 
 There is minimal support for synced folders. Upon `vagrant up`,
@@ -93,6 +114,8 @@ There is minimal support for synced folders. Upon `vagrant up`,
 the remote machine over SSH.
 
 See [Vagrant Synced folders: rsync](https://docs.vagrantup.com/v2/synced-folders/rsync.html)
+
+## Caveats
 
 ## Development
 
