@@ -101,8 +101,14 @@ This is a JSON file used by Cisco CloudCenter to deploy a new application into t
 1. Access the application from the CCM UI and click Applications
 2. Search for the required application in the Applications page
 3. Select `Deploy` 
+
+![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/AppProfiles.png)
+
 4. Complete the required fields
 5. Select `Restful JSON`
+
+![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/AppDeployment.png)
+
 6. Save the JSON output into a new file on your local machine
 7. Use this file in the `cloudcenter.deployment_config` setting
 
