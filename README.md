@@ -111,7 +111,7 @@ This is a JSON file used by Cisco CloudCenter to deploy a new application into t
 
 ![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/AppDeployment.png)
 
-6. Save the JSON output into a new file on your local machine
+6. Save the JSON output into a new file on your local machine - if sharing a single file amongst multiple people or for multiple projects be sure to change the deployment job name so there is no overlap. 
 7. Use this file in the `cloudcenter.deployment_config` setting
 
 ## Synced Folders
