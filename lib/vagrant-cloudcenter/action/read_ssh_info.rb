@@ -38,8 +38,7 @@ module VagrantPlugins
                       :url => encoded,
                       :verify_ssl => false,
                       :accept => "json",
-                      :headers => {"Content-Type" => "application/json"},
-                      :payload => deployment_config
+                      :headers => {"Content-Type" => "application/json"}
                     ));
               
               jobID = response["jobs"][0]["id"]
@@ -61,9 +60,7 @@ module VagrantPlugins
                   :method => :get,
                   :url => encoded,
                   :verify_ssl => false,
-                  :accept => "json",
-                  :headers => {"Content-Type" => "application/json"},
-                  :payload => deployment_config
+                  :accept => "json"
                 ));
               rescue => e
                 error = JSON.parse(e.response) 
@@ -79,10 +76,10 @@ module VagrantPlugins
 
           end 
 
-          #env[:machine_ssh_info] = { :host =>  env[:machine_public_ip], :port => 22, :username => "vagrant",:private_key_path => env[:machine].config.ssh.private_key_path}
+
+          env[:machine_ssh_info] = { :host =>  env[:machine_public_ip], :port => 22, :username => "vagrant",:private_key_path => env[:machine].config.ssh.private_key_path}
 
           env[:ssh_info]  = { :host =>  env[:machine_public_ip], :port => 22, :username => "vagrant",:private_key_path => env[:machine].config.ssh.private_key_path}
-
 
           @app.call(env)
         end

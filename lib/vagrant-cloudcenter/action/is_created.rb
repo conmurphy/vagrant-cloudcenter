@@ -57,9 +57,7 @@ module VagrantPlugins
                     :method => :get,
                     :url => encoded,
                     :verify_ssl => false,
-                    :accept => "json",
-                    :headers => {"Content-Type" => "application/json"},
-                    :payload => deployment_config
+                    :accept => "json"
                   ));
 
                 rescue => e

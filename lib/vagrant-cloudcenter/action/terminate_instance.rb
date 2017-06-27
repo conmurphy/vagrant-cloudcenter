@@ -67,8 +67,7 @@ module VagrantPlugins
                     :method => :delete,
                     :url => encoded,
                     :verify_ssl => false,
-                    :accept => "json",
-                    :headers => {"Content-Type" => "application/json"},
+                    :accept => "json"
                   ));
 
                 rescue => e

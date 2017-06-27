@@ -47,8 +47,8 @@ module VagrantPlugins
   									:url => encoded,
                     :verify_ssl => false,
                     :accept => "json",
-                    :headers => {"Content-Type" => "application/json"},
-                    :payload => deployment_config
+                    :payload => deployment_config,
+                    :headers => {"Content-Type" => "application/json"}
 									));
 
             response = env[:cloudcenter_connect]
@@ -61,8 +61,7 @@ module VagrantPlugins
               :method => :get,
               :url => encoded,
               :verify_ssl => false,
-              :accept => "json",
-              :headers => {"Content-Type" => "application/json"},
+              :accept => "json"
                               
             ))
 
@@ -99,8 +98,7 @@ module VagrantPlugins
                               :method => :get,
                               :url => encoded,
                               :verify_ssl => false,
-                              :accept => "json",
-                              :headers => {"Content-Type" => "application/json"},
+                              :accept => "json"
                               
                       ))
 
@@ -138,6 +136,9 @@ module VagrantPlugins
          
 
           @app.call(env)
+
+
+
         end
       end
     end

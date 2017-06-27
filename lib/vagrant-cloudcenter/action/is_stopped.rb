@@ -26,14 +26,12 @@ module VagrantPlugins
 
               begin 
                 encoded = URI.encode("https://#{username}:#{access_key}@#{host_ip}/v2/jobs?search=[deploymentEntity.name,fle,#{env[:machine_name]}]");           
-              
                 response = JSON.parse(RestClient::Request.execute(
                         :method => :get,
                         :url => encoded,
                         :verify_ssl => false,
                         :accept => "json",
-                        :headers => {"Content-Type" => "application/json"},
-                        :payload => deployment_config
+                        :headers => {"Content-Type" => "application/json"}
                       ));
                 if !response["jobs"].empty?
                   jobID = response["jobs"][0]["id"]
@@ -58,14 +56,11 @@ module VagrantPlugins
               if !jobID.nil?
                 begin
                   encoded = URI.encode("https://#{username}:#{access_key}@#{host_ip}/v2/jobs/#{jobID}");           
-              
                   response = JSON.parse(RestClient::Request.execute(
                     :method => :get,
                     :url => encoded,
                     :verify_ssl => false,
                     :accept => "json",
-                    :headers => {"Content-Type" => "application/json"},
-                    :payload => deployment_config
                   ));
 
                 rescue => e

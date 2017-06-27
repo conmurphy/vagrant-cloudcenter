@@ -74,8 +74,8 @@ module VagrantPlugins
                     :url => encoded,
                     :verify_ssl => false,
                     :accept => "json",
-                    :headers => {"Content-Type" => "application/json"},
-                    :payload => payload
+                    :payload => payload,
+                    :headers => {"Content-Type" => "application/json"}
                   ));
 
                 rescue => e
@@ -100,8 +100,7 @@ module VagrantPlugins
                                     :method => :get,
                                     :url => encoded,
                                     :verify_ssl => false,
-                                    :accept => "json",
-                                    :headers => {"Content-Type" => "application/json"},
+                                    :accept => "json"
                                     
                             ))
                         rescue => e
