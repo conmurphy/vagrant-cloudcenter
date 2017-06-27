@@ -121,7 +121,9 @@ the remote machine over SSH.
 
 See [Vagrant Synced folders: rsync](https://docs.vagrantup.com/v2/synced-folders/rsync.html)
 
-## Caveats
+## Guidelines and Limitations
+
+* Currently tested with a single tier VM 
 
 ## Development
 
