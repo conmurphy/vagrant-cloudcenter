@@ -33,10 +33,12 @@ Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 ## Usage
 
-After installing the plugin use the `vagrant up` command and specify the `cloudcenter`  provider.
+After installing the plugin, add the CloudCenter sample box, and then use `vagrant up --provider=cloudcenter` to launch the instance
 
 ```
 $ vagrant plugin install vagrant-cloudcenter
+...
+$ vagrant box add dummy https://github.com/conmurphy/vagrant-cloudcenter/raw/master/example_box/cloudcenter.box
 ...
 $ vagrant up --provider=cloudcenter
 ...
