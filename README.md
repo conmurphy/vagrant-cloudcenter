@@ -36,6 +36,8 @@ Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 After installing the plugin use the `vagrant up` command an specify the `cloudcenter`  provider.
 
 ```
+$ vagrant plugin install vagrant-cloudcenter
+...
 $ vagrant up --provider=cloudcenter
 ...
 ```
