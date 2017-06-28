@@ -2,7 +2,7 @@
 
 This is a Vagrant plugin that adds a Cisco CloudCenter provider to Vagrant. It allows Vagrant to communicate with CloudCenter and have it control and provision machines in a number of public and private clouds. 
 
-This plugin is currently a Proof of Concept and has been developed and tested against Cisco CloudCenter 4.8.0 and Vagrant 1.2+
+This plugin is currently a Proof of Concept and has been developed and tested against Cisco CloudCenter 4.8.0 and Vagrant 1.9.5
 
 ![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/overview.png)
 
