@@ -24,10 +24,16 @@ Vagrant.configure(2) do |config|
 	config.ssh.insert_key = false
 
 	config.vm.provider :cloudcenter do |cloudcenter|
+		
 		cloudcenter.username = 'my_username'
 		cloudcenter.access_key = 'my_access_key'
-		cloudcenter.host_ip = 'cloudcenter_host_ip_address'
+
+		cloudcenter.host = 'cloudcenter_host_address'
 		cloudcenter.deployment_config = 'sample_deployment_config.json'
+
+		cloudcenter.use_https = true
+		cloudcenter.ssl_ca_file = '/path/to/ca_file'
+
 	end
   
   	config.vm.synced_folder '.', '/opt/my_files/', type: 'rsync'

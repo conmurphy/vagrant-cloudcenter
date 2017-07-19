@@ -8,10 +8,10 @@ module VagrantPlugins
       # @return [String]
       attr_accessor :access_key
 
-      # The Catalog Name for the VM to be provisioned from
+      # The address of the host
       #
       # @return [String]
-      attr_accessor :host_ip
+      attr_accessor :host
 
       # Comment to use when provisioning the VM
       #
@@ -23,13 +23,23 @@ module VagrantPlugins
       # @return [String]
       attr_accessor :deployment_config
 
-     
+      # Whether or not to use HTTPS
+      #
+      # @return [boolean]
+      attr_accessor :use_https
+
+      # Path to the SSL CA file
+      #
+      # @return [String]
+      attr_accessor :ssl_ca_file
+
       def initialize()
-        @access_key              = UNSET_VALUE
-        @host_ip              = UNSET_VALUE
-        @host_port		           = UNSET_VALUE
-        @username				   = UNSET_VALUE
-        @deployment_config          = UNSET_VALUE
+        @access_key = UNSET_VALUE
+        @host = UNSET_VALUE
+        @username = UNSET_VALUE
+        @deployment_config = UNSET_VALUE
+        @use_https = true
+        @ssl_ca_file = ''
 	  end
     end
   end
