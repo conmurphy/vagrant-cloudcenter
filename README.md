@@ -2,7 +2,7 @@
 
 This is a Vagrant plugin that adds a Cisco CloudCenter provider to Vagrant. It allows Vagrant to communicate with CloudCenter and have it control and provision machines in a number of public and private clouds. 
 
-This plugin is currently a Proof of Concept and has been developed and tested against Cisco CloudCenter 4.8.0 and Vagrant 1.2+
+This plugin is currently a Proof of Concept and has been developed and tested against Cisco CloudCenter 4.8.0 and Vagrant 1.9.5
 
 ![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/overview.png)
 
@@ -33,9 +33,13 @@ Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 ## Usage
 
-After installing the plugin use the `vagrant up` command an specify the `cloudcenter`  provider.
+After installing the plugin, add the CloudCenter sample box, and then use `vagrant up --provider=cloudcenter` to launch the instance
 
 ```
+$ vagrant plugin install vagrant-cloudcenter
+...
+$ vagrant box add dummy https://github.com/conmurphy/vagrant-cloudcenter/raw/master/example_box/cloudcenter.box
+...
 $ vagrant up --provider=cloudcenter
 ...
 ```
@@ -104,12 +108,12 @@ This is a JSON file used by Cisco CloudCenter to deploy a new application into t
 2. Search for the required application in the Applications page
 3. Select `Deploy` 
 
-![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/AppProfiles.png)
+![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/DeployApp.png)
 
 4. Complete the required fields
 5. Select `Restful JSON`
 
-![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/AppDeployment.png)
+![alt tag](https://github.com/conmurphy/vagrant-cloudcenter/blob/master/images/JSONSelect.png)
 
 6. Save the JSON output into a new file on your local machine - if sharing a single file amongst multiple people or for multiple projects be sure to change the deployment job name so there is no overlap. 
 7. Use this file in the `cloudcenter.deployment_config` setting
@@ -133,7 +137,7 @@ To work on the CloudCenter plugin, clone this repository then run the following 
 
 ```
 $ gem build vagrant-cloudcenter.gemspec
-$ vagrant plugin install ./vagrant-cloudcenter-0.1.0.gem
+$ vagrant plugin install ./vagrant-cloudcenter-0.2.0.gem
 ```
 
 To uninstall the plugin run `vagrant plugin uninstall vagrant-cloudcenter`
