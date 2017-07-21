@@ -143,7 +143,7 @@ To work on the CloudCenter plugin, clone this repository then run the following 
 
 ```
 $ gem build vagrant-cloudcenter.gemspec
-$ vagrant plugin install ./vagrant-cloudcenter-0.2.0.gem
+$ vagrant plugin install ./vagrant-cloudcenter-0.3.0.gem
 ```
 
 To uninstall the plugin run `vagrant plugin uninstall vagrant-cloudcenter`
