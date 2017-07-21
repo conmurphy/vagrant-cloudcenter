@@ -76,6 +76,9 @@ module VagrantPlugins
                 if e.to_s == "SSL_connect returned=1 errno=0 state=error: certificate verify failed"
                   puts "\n ERROR: Failed to verify certificate\n\n"
                   exit
+                elsif e.to_s == "401 Unauthorized"
+                  puts "\n ERROR: Incorrect credentials\n\n"
+                  exit
                 elsif e.to_s == "hostname \"#{host}\" does not match the server certificate"
                   puts "\n ERROR: Hostname \"#{host}\" does not match the server certificate\n\n"
                   exit
@@ -131,6 +134,9 @@ module VagrantPlugins
                 rescue => e
                   if e.to_s == "SSL_connect returned=1 errno=0 state=error: certificate verify failed"
                     puts "\n ERROR: Failed to verify certificate\n\n"
+                    exit
+                  elsif e.to_s == "401 Unauthorized"
+                    puts "\n ERROR: Incorrect credentials\n\n"
                     exit
                   elsif e.to_s == "hostname \"#{host}\" does not match the server certificate"
                     puts "\n ERROR: Hostname \"#{host}\" does not match the server certificate\n\n"
@@ -194,6 +200,9 @@ module VagrantPlugins
                         rescue => e
                           if e.to_s == "SSL_connect returned=1 errno=0 state=error: certificate verify failed"
                             puts "\n ERROR: Failed to verify certificate\n\n"
+                            exit
+                          elsif e.to_s == "401 Unauthorized"
+                            puts "\n ERROR: Incorrect credentials\n\n"
                             exit
                           elsif e.to_s == "hostname \"#{host}\" does not match the server certificate"
                             puts "\n ERROR: Hostname \"#{host}\" does not match the server certificate\n\n"

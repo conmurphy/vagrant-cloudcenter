@@ -10,7 +10,7 @@ module VagrantPlugins
           	
           	access_key = ""
             username = ""
-            host_ip = ""
+            host = ""
 
 			if File.exists?("VagrantFile")
 				File.readlines("VagrantFile").grep(/cloudcenter.access_key/) do |line|
@@ -24,9 +24,9 @@ module VagrantPlugins
 				      
 				    end
 				end
-				File.readlines("VagrantFile").grep(/cloudcenter.host_ip/) do |line|
+				File.readlines("VagrantFile").grep(/cloudcenter.host/) do |line|
 				    unless line.empty?
-				      host_ip = line.scan(/["']([^"']*)["']/)[0][0]
+				      host = line.scan(/["']([^"']*)["']/)[0][0]
 				      
 				    end
 				end
@@ -38,8 +38,8 @@ module VagrantPlugins
 			if username.empty?
 				username = ENV["username"]
 			end
-			if host_ip.empty?
-				host_ip = ENV["host_ip"]
+			if host.empty?
+				host = ENV["host"]
 			end
 
 			if access_key.nil?
@@ -48,19 +48,19 @@ module VagrantPlugins
 			if username.nil?
 				puts "Username missing. Please enter into VagrantFile or environmental variable 'export username= '"
 			end
-			if host_ip.nil?
-				puts "Host IP missing. Please enter into VagrantFile or environmental variable 'export host_ip= '"
+			if host.nil?
+				puts "Host IP missing. Please enter into VagrantFile or environmental variable 'export host= '"
 			end
 
-			if !(access_key.nil? or username.nil? or host_ip.nil?)
+			if !(access_key.nil? or username.nil? or host.nil?)
           		begin
 
-		            encoded = URI.encode("https://#{username}:#{access_key}@#{host_ip}/v1/apps");           
+		            encoded = URI.encode("https://#{username}:#{access_key}@#{host}/v1/apps");           
 		            
 		            catalog = JSON.parse(RestClient::Request.execute(
 		   									:method => :get,
 		  									:url => encoded,
-		                    :verify_ssl => false,
+		                    #:verify_ssl => false,
 		                    :content_type => "json",
 		                    :accept => "json"
 											));
@@ -91,18 +91,33 @@ module VagrantPlugins
 
 	          	rescue => e
 
-		            if e.inspect ==  "Timed out connecting to server"
-		              puts "\n#ConnectionError - Unable to connnect to CloudCenter Manager \n"
-		              exit
-		            else
-		              error = JSON.parse(e.response) 
-	                  code = error["errors"][0]["code"]
+		            if e.to_s == "SSL_connect returned=1 errno=0 state=error: certificate verify failed"
+	                  puts "\n ERROR: Failed to verify certificate\n\n"
+	                  exit
+	                elsif e.to_s == "401 Unauthorized"
+                  		puts "\n ERROR: Incorrect credentials\n\n"
+                  		exit
+	                elsif e.to_s == "hostname \"#{host}\" does not match the server certificate"
+	                  puts "\n ERROR: Hostname \"#{host}\" does not match the server certificate\n\n"
+	                  exit
+	                elsif e.to_s.include? "No route to host"
+	                  puts "\n ERROR: No route to host. Check connectivity and try again\n\n"
+	                  exit
+	                elsif e.to_s.== "Timed out connecting to server"
+	                  puts "\n ERROR: Timed out connecting to server. Check connectivity and try again\n\n"
+	                  exit
+	                elsif e.to_s.== "getaddrinfo: nodename nor servname provided, or not known"
+	                  puts "\n ERROR: Unable to connect to \"#{host}\" \n\n"
+	                  exit
+	                else
+	                  error = JSON.parse(e.response) 
+	                  code = error["errors"][0]["code"] 
 
-		              puts "\n Error code: #{error['errors'][0]['code']}\n"
+	                  puts "\n Error code: #{error['errors'][0]['code']}\n"
 	                  puts "\n #{error['errors'][0]['message']}\n\n"
 
-		              exit
-		            end
+	                  exit
+	                end
 				end	
 			end
           

@@ -2,7 +2,7 @@ require File.expand_path("../lib/vagrant-cloudcenter/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "vagrant-cloudcenter"
-  s.version     = "0.3.0"
+  s.version     = "0.4.0"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Conor Murphy"]
   s.email       = ["conormurphy33@hotmail.com"]

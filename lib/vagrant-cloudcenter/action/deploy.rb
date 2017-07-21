@@ -107,19 +107,22 @@ module VagrantPlugins
               if e.to_s == "SSL_connect returned=1 errno=0 state=error: certificate verify failed"
                   puts "\n ERROR: Failed to verify certificate\n\n"
                   exit
-                elsif e.to_s == "hostname \"#{host}\" does not match the server certificate"
+              elsif e.to_s == "401 Unauthorized"
+                  puts "\n ERROR: Incorrect credentials\n\n"
+                  exit
+              elsif e.to_s == "hostname \"#{host}\" does not match the server certificate"
                   puts "\n ERROR: Hostname \"#{host}\" does not match the server certificate\n\n"
                   exit
-                elsif e.to_s.include? "No route to host"
+              elsif e.to_s.include? "No route to host"
                   puts "\n ERROR: No route to host. Check connectivity and try again\n\n"
                   exit
-                elsif e.to_s.== "Timed out connecting to server"
+              elsif e.to_s.== "Timed out connecting to server"
                   puts "\n ERROR: Timed out connecting to server. Check connectivity and try again\n\n"
                   exit
-                elsif e.to_s.== "getaddrinfo: nodename nor servname provided, or not known"
+              elsif e.to_s.== "getaddrinfo: nodename nor servname provided, or not known"
                   puts "\n ERROR: Unable to connect to \"#{host}\" \n\n"
                   exit
-                else
+              else
                   error = JSON.parse(e.response) 
                   code = error["errors"][0]["code"] 
 
@@ -189,6 +192,9 @@ module VagrantPlugins
                   rescue => e
                     if e.to_s == "SSL_connect returned=1 errno=0 state=error: certificate verify failed"
                       puts "\n ERROR: Failed to verify certificate\n\n"
+                      exit
+                    elsif e.to_s == "401 Unauthorized"
+                      puts "\n ERROR: Incorrect credentials\n\n"
                       exit
                     elsif e.to_s == "hostname \"#{host}\" does not match the server certificate"
                       puts "\n ERROR: Hostname \"#{host}\" does not match the server certificate\n\n"
