@@ -69,8 +69,10 @@ Vagrant.configure(2) do |config|
 	config.vm.provider :cloudcenter do |cloudcenter|
 		cloudcenter.username = 'my_username'
 		cloudcenter.access_key = 'my_access_key'
-		cloudcenter.host_ip = 'cloudcenter_host_ip_address'
+		cloudcenter.host = 'cloudcenter_host_ip_address'
 		cloudcenter.deployment_config = 'sample_deployment_config.json'
+		cloudcenter.use_https = true
+		cloudcenter.ssl_ca_file = '/Users/MYUSERNAME/MY_SSL_CA_FILE.crt'
 	end
   
   	config.vm.synced_folder '.', '/opt/my_files/', type: 'rsync'
@@ -97,8 +99,12 @@ This provider exposes quite a few provider-specific configuration options:
 
 * `access_key` - The access key for accessing the Cisco CloudCenter API
 * `username` - The username for accessing the  CloudCenter API
-* `host_ip` - The host IP address of the CloudCenter Manager
+* `host` - The CloudCenter Manager address
 * `deployment_config` - A JSON file used by CloudCenter to deploy the desired infrastructure
+* `use_https` - Whether or not to use HTTPS when connecting to the CloudCenter API. Default is `true`
+* `ssl_ca_file` - Location of your custom SSL CA file to use when connecting to the CloudCenter API. See the following document below for details on how to use your own customer client certificates with CloudCenter. This is not required if `use_https` is set to `false`
+
+[CloudCenter - Certificate Authentication](http://docs.cloudcenter.cisco.com/display/CCD48/Certificate+Authentication)
 
 ## Deployment Config
 
@@ -137,7 +143,7 @@ To work on the CloudCenter plugin, clone this repository then run the following 
 
 ```
 $ gem build vagrant-cloudcenter.gemspec
-$ vagrant plugin install ./vagrant-cloudcenter-0.2.0.gem
+$ vagrant plugin install ./vagrant-cloudcenter-0.3.0.gem
 ```
 
 To uninstall the plugin run `vagrant plugin uninstall vagrant-cloudcenter`
